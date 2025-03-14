@@ -194,6 +194,10 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/system_ext.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
+# Power
+ TARGET_POWERHAL_MODE_EXT := $(DEVICE_PATH)/power/power-mode.cpp
+ TARGET_USES_INTERACTION_BOOST := true
+
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
@@ -205,7 +209,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # Sepolicy
-include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
