@@ -120,6 +120,9 @@ TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_ADDITIONAL_FLAGS := LD=ld.lld  LLVM=1 LLVM_IAS=1
 TARGET_KERNEL_ADDITIONAL_FLAGS += HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
+# Kernel UFFD_GC
+PRODUCT_ENABLE_UFFD_GC := true
+
 # Kernel Clang Flags
 KERNEL_CC := CC=clang
 override KERNEL_TOOLCHAIN_PREFIX_arm := arm-linux-android-
