@@ -62,13 +62,6 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NEEDS_RAW10_BUFFER_FIX := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
 
-#Compression
-PRODUCT_FS_COMPRESSION := 1
-BOARD_EROFS_COMPRESSOR := lz4
-
-# Compression block length
-BOARD_EROFS_PCLUSTER_SIZE := 262144
-
 # Display
 TARGET_SCREEN_DENSITY := 440
 TARGET_GRALLOC_HANDLE_HAS_RESERVED_SIZE := true
@@ -145,7 +138,7 @@ AB_OTA_UPDATER := false
 #Retrofit 
 PARTITIONS := system vendor
 $(foreach p, $(call to-upper, $(PARTITIONS)), \
-    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs) \
+    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4) \
     $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 
 BOARD_SUPER_PARTITION_SIZE := 6442450944
