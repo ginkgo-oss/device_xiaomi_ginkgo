@@ -64,7 +64,11 @@ TARGET_USES_QTI_CAMERA_DEVICE := true
 
 ifeq ($(WITH_GMS),true)
 #Compression
-BOARD_EROFS_COMPRESSOR := none
+PRODUCT_FS_COMPRESSION := 1
+BOARD_EROFS_COMPRESSOR := lz4
+
+# Compression block length
+BOARD_EROFS_PCLUSTER_SIZE := 262144
 endif
 
 # Display
