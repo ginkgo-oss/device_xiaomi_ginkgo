@@ -166,6 +166,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml
 
+# Kernel UFFD_GC
+PRODUCT_ENABLE_UFFD_GC := true
+
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@2.1-impl-qti \
@@ -186,7 +189,7 @@ PRODUCT_COPY_FILES += \
 # Speed profile services and wifi-service to reduce RAM and storage
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
-PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
+PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-image-profile.txt
 
 # Health
 PRODUCT_PACKAGES += \
@@ -248,10 +251,6 @@ PRODUCT_PACKAGES += \
 # Lineage Health
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
-
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm
 
 # Media
 PRODUCT_PACKAGES += \
@@ -327,7 +326,6 @@ PRODUCT_ODM_PROPERTIES += \
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
-    fstab.qcom_ramdisk \
     init.class_main.sh \
     init.ginkgo.rc \
     init.qcom.early_boot.sh \

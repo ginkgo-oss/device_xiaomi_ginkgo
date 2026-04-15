@@ -85,9 +85,9 @@ GNSS_HIDL_VERSION := 2.1
 LOC_HIDL_VERSION := 4.0
 
 # HIDL
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(DEVICE_PATH)/configs/hidl/framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/hidl/framework_manifest.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/hidl/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/hidl/compatibility_matrix.xml
@@ -98,7 +98,7 @@ ODM_MANIFEST_SKUS += willow
 HWUI_COMPILE_FOR_PERF := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_ginkgo
+$(call soong_config_set,libinit,vendor_init_lib,//$(DEVICE_PATH):libinit_ginkgo)
 TARGET_RECOVERY_DEVICE_MODULES := libinit_ginkgo
 
 # Kernel
@@ -114,21 +114,21 @@ BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_SEPARATED_DTBO := true
 
 TARGET_KERNEL_SOURCE := kernel/xiaomi/ginkgo
-TARGET_KERNEL_CONFIG := vendor/ginkgo-perf_defconfig
+TARGET_KERNEL_CONFIG := vendor/trinket-perf_defconfig \
+                        sukisu.config \
+                        vendor/ginkgo.config
+                        
 
 TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_ADDITIONAL_FLAGS := LD=ld.lld  LLVM=1 LLVM_IAS=1
 TARGET_KERNEL_ADDITIONAL_FLAGS += HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
-
-# Kernel UFFD_GC
-PRODUCT_ENABLE_UFFD_GC := true
 
 # Kernel Clang Flags
 KERNEL_CC := CC=clang
 override KERNEL_TOOLCHAIN_PREFIX_arm := arm-linux-android-
 
 # Lineage Health
-TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
 
 # Media 
 TARGET_USES_ION := true
@@ -147,7 +147,6 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4831838208
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 52554612224
 BOARD_VENDORIMAGE_PARTITION_SIZE := 1610612736
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_USES_METADATA_PARTITION := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -161,7 +160,7 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
     /vendor/bt_firmware:/bt_firmware
 
 # Properties
-TARGET_PRODUCT_PROP += $(COMMON_PATH)/product.prop
+TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/system_ext.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
